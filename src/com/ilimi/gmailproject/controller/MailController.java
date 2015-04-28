@@ -38,7 +38,7 @@ import com.google.api.services.gmail.model.MessagePartBody;
 import com.google.api.services.gmail.model.MessagePartHeader;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
-import com.ilimi.gmailproject.DAO.UserDAO;
+import com.ilimi.gmailproject.dao.UserDAO;
 import com.ilimi.gmailproject.entity.UserEntity;
 
 @Controller
@@ -66,7 +66,7 @@ public class MailController {
 		JsonFactory jsonFactory = new JacksonFactory();
 
 		try {
-			clientSecrets = GoogleClientSecrets.load(jsonFactory, new FileReader("F:/WorkspaceMaven/GmailProject/client_secret.json"));
+			clientSecrets = GoogleClientSecrets.load(jsonFactory, new FileReader("E:/Jeetu/WorkSpace/GmailProject/client_secret.json"));
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -113,7 +113,7 @@ public class MailController {
 		boolean userCheck = userDao.fetchUserData(userinfo.getEmail());
 		if (userCheck) {
 			ModelAndView model = new ModelAndView("mailBox");
-			return new IGmailServiceImpl().receiveMail(service, model);
+			return new GmailServiceImpl().receiveMail(service, model);
 
 		} else {
 			ModelAndView model = new ModelAndView("userInfo");

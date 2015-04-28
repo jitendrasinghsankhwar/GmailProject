@@ -2,7 +2,7 @@ package com.ilimi.gmailproject.service;
 
 import java.util.List;
 
-import com.ilimi.gmailproject.DAO.MsgDTO;
+import com.ilimi.gmailproject.dao.MsgDTO;
 
 public interface IGmailService {
 

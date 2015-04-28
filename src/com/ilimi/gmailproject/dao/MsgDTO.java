@@ -1,4 +1,4 @@
-package com.ilimi.gmailproject.DAO;
+package com.ilimi.gmailproject.dao;
 
 public class MsgDTO {
 	

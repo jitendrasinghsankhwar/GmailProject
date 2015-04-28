@@ -6,9 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>MailBox</title>
 <script src="resources/mytheme/js/jquery.js"></script>
-<!-- Latest compiled and minified CSS -->
+<link href="resources/mytheme/css/bootstrap.min.css" rel="stylesheet">
+<!-- Latest compiled and minified CSS 
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+	
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -17,8 +19,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body style="background: #E0E0D1;">
-	<h2 Style="color: maroon; margin-left: 20px;">MailBox</h2>
-	<div style="width: 70%; margin-left: 15%">
+	<div class="page-header"><h2 Style="color: maroon; margin-left: 20px;">MailBox</h2></div>
+	<div style="width: 70%; margin-left: 15%; margin-top: 0%;">
 		<div class="panel-group" id="accordion" role="tablist"
 			aria-multiselectable="true">
 			<div class="panel panel-default">
@@ -26,7 +28,13 @@
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#accordion"
 							href="#collapseOne" aria-expanded="true"
-							aria-controls="collapseOne"> ${From } ${Subject} ${Date}</a>
+							aria-controls="collapseOne">
+							<div class="row">
+								<div class="col-md-4">${From}</div>
+								<div class="col-md-4">${Subject}-${Snnippt}</div>
+								<div class="col-md-4">${Date}</div>
+							</div>	
+						</a>
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse in"

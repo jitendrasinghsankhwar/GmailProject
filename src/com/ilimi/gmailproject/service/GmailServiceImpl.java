@@ -13,16 +13,16 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+import com.google.api.client.util.Base64;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.Gmail.Users.Messages.Get;
 import com.google.api.services.gmail.model.ListMessagesResponse;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.MessagePartBody;
 import com.google.api.services.gmail.model.MessagePartHeader;
-import com.ilimi.gmailproject.DAO.MsgDTO;
+import com.ilimi.gmailproject.dao.MsgDTO;
 
-public class IGmailServiceImpl implements IGmailService {
+public class GmailServiceImpl implements IGmailService {
 
 	@Override
 	public List<MsgDTO> getMessage(Thread id) {
@@ -53,19 +53,22 @@ public class IGmailServiceImpl implements IGmailService {
 		Message msg = null;
 		try {
 			msg = get.setFormat("full").execute();
-			// System.out.println(StringUtils.newStringUtf8(Base64.decodeBase64(msg.getPayload().getParts()[0].body.data)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		MessagePartBody body = msg.getPayload().getBody();
-		//System.out.println("Message Body:::" + msg.getPayload().getParts().get(0).getBody().getData());
-		// msg.getPayload().getParts()[0].body.data;
-
-		//model.addObject("Body", org.apache.commons.codec.binary.Base64.decodeBase64(msg.getPayload().getParts().get(0).getBody().getData().getBytes()));
-		
-
+		if(msg.getPayload().getBody().getData() != null){
+			System.out.println("Message Body:::" + new String(Base64.decodeBase64(msg.getPayload().getBody().getData().getBytes())));
+			model.addObject("Body", new String(Base64.decodeBase64(msg.getPayload().getBody().getData().getBytes())));
+		}
+		if(msg.getPayload().getBody().getAttachmentId() != null){
+			System.out.println("Message Attacement:::::"+ new String(Base64.decodeBase64(msg.getPayload().getBody().getAttachmentId().getBytes())));
+			model.addObject("Body", new String(Base64.decodeBase64(msg.getPayload().getBody().getAttachmentId().getBytes())));
+		}
+				
+		model.addObject("Snnippt", msg.getSnippet());
 		List<MessagePartHeader> headers = msg.getPayload().getHeaders();
 		for (MessagePartHeader mph : headers) {
 			// System.out.println("Key:" + mph.getName() + " | value:" + mph.getValue());
@@ -82,22 +85,6 @@ public class IGmailServiceImpl implements IGmailService {
 		}
 		return model;
 
-		/**
-		 * for (Message msg : message) { Message msgData = service.users().messages().get("me", msg.getId()).execute(); //
-		 * System.out.println(msgData.getPayload().getBody().getData().toString() + "------" + i++);
-		 * System.out.println("----------------------------------------------------------------");
-		 * System.out.println(msgData.getPayload().getHeaders().get(0).getName() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(1).getName() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(2).getName() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(3).getName() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(4).getName() + "\n");
-		 * System.out.println("----------------------------------------------------------------");
-		 * System.out.println(msgData.getPayload().getHeaders().get(0).getValue() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(1).getValue() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(2).getValue() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(3).getValue() + "\n");
-		 * System.out.println(msgData.getPayload().getHeaders().get(4).getValue() + "\n"); break; }
-		 */
 
 	}
 	

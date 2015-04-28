@@ -1,4 +1,4 @@
-package com.ilimi.gmailproject.DAO;
+package com.ilimi.gmailproject.dao;
 
 import java.util.List;
 import java.util.Date;
